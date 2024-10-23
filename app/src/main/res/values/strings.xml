@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Dataset App</string>
+    <string name="pengambilan_dataset">Pengambilan Dataset</string>
+    <string name="description">Data Anda akan kami gunakan sebagaimana mestinya, untuk keperluan training Machine Learning PT Bimasakti Multi Sinergi</string>
+    <string name="ambil_foto_ktp">Ambil Foto KTP</string>
+    <string name="foto_e_ktp_anda">Foto E-KTP Anda</string>
+    <string name="ketentuan">Ketentuan :</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
