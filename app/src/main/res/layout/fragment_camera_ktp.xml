@@ -6,28 +6,201 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_title"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView232"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/e_ktp"
+            android:textStyle="bold"
+            android:layout_marginVertical="16dp"
+            android:layout_marginHorizontal="18dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewVertical1"
+        android:layout_width="1dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/previewView"
+        app:layout_constraintEnd_toStartOf="@+id/previewView"
+        app:layout_constraintTop_toTopOf="@id/previewView" />
+
+    <View
+        android:id="@+id/viewVertical2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/previewView"
+        app:layout_constraintStart_toEndOf="@+id/previewView"
+        app:layout_constraintTop_toTopOf="@id/viewVertical1" />
+
+    <View
+        android:id="@+id/viewVertical3"
+        android:layout_width="7dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/viewVertical1"
+        app:layout_constraintStart_toStartOf="@id/viewVertical1"
+        app:layout_constraintTop_toTopOf="@id/viewHorisontal1" />
+
+    <View
+        android:id="@+id/viewVertical4"
+        android:layout_width="7dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/viewVertical2"
+        app:layout_constraintStart_toStartOf="@id/viewVertical2"
+        app:layout_constraintTop_toTopOf="@id/viewHorisontal1" />
+
+    <View
+        android:id="@+id/viewVertical5"
+        android:layout_width="7dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/viewHorisontal5"
+        app:layout_constraintEnd_toEndOf="@id/viewVertical1"
+        app:layout_constraintStart_toStartOf="@id/viewVertical1" />
+
+    <View
+        android:id="@+id/viewVertical6"
+        android:layout_width="7dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/viewHorisontal6"
+        app:layout_constraintEnd_toEndOf="@id/viewVertical2"
+        app:layout_constraintStart_toStartOf="@id/viewVertical2" />
+
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="0dp"
+        android:layout_height="270dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_box_ktp"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toTopOf="@id/tv_ktp_ambil_gambar_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
-            android:layout_width="360dp"
-            android:layout_height="210dp"
-            android:layout_gravity="center"
-            android:background="@drawable/rounded_box_ktp"/>
+    </androidx.camera.view.PreviewView>
 
-        <androidx.camera.view.PreviewView
-            android:id="@+id/viewFinder"
-            android:layout_width="350dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center" />
+    <View
+        android:id="@+id/viewHorisontal1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/previewView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </FrameLayout>
+    <View
+        android:id="@+id/viewHorisontal2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/previewView" />
+
+    <View
+        android:id="@+id/viewHorisontal3"
+        android:layout_width="38dp"
+        android:layout_height="6dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/viewHorisontal1"
+        app:layout_constraintStart_toStartOf="@id/viewVertical3"
+        app:layout_constraintTop_toTopOf="@id/viewHorisontal1" />
+
+    <View
+        android:id="@+id/viewHorisontal4"
+        android:layout_width="38dp"
+        android:layout_height="6dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/viewHorisontal1"
+        app:layout_constraintEnd_toEndOf="@id/viewVertical4"
+        app:layout_constraintTop_toTopOf="@id/viewHorisontal1" />
+
+    <View
+        android:id="@+id/viewHorisontal5"
+        android:layout_width="38dp"
+        android:layout_height="6dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/viewHorisontal2"
+        app:layout_constraintStart_toStartOf="@id/viewVertical1"
+        app:layout_constraintTop_toTopOf="@id/viewHorisontal2" />
+
+    <View
+        android:id="@+id/viewHorisontal6"
+        android:layout_width="38dp"
+        android:layout_height="6dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/viewHorisontal2"
+        app:layout_constraintEnd_toEndOf="@id/viewVertical2"
+        app:layout_constraintTop_toTopOf="@id/viewHorisontal2" />
+
+
+    <ImageView
+        android:id="@+id/ktp_rectangle"
+        android:layout_width="110dp"
+        android:layout_height="130dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/camera_card_ktp_face_rectangle"
+        app:layout_constraintBottom_toBottomOf="@id/previewView"
+        app:layout_constraintEnd_toEndOf="@id/previewView"
+        app:layout_constraintTop_toTopOf="@id/previewView" />
+
+    <ImageView
+        android:id="@+id/image_view_ktp_head"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_kepala"
+        app:layout_constraintBottom_toTopOf="@id/image_view_ktp_body"
+        app:layout_constraintEnd_toEndOf="@id/ktp_rectangle"
+        app:layout_constraintStart_toStartOf="@id/ktp_rectangle" />
+
+    <ImageView
+        android:id="@+id/image_view_ktp_body"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_body"
+        app:layout_constraintBottom_toBottomOf="@id/ktp_rectangle"
+        app:layout_constraintEnd_toEndOf="@id/ktp_rectangle"
+        app:layout_constraintStart_toStartOf="@id/ktp_rectangle"
+        app:layout_constraintTop_toTopOf="@id/ktp_rectangle" />
 
     <TextView
         android:id="@+id/tv_ktp_ambil_gambar_info"
@@ -36,11 +209,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="20dp"
-        android:gravity="center"
         android:text="Posisikan KTP Anda di dalam bingkai dan pastikan terlihat jelas"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_large"
-        android:textStyle="bold"
+        android:textSize="@dimen/text_size_medium"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/captureImage"
         app:layout_constraintEnd_toEndOf="parent"

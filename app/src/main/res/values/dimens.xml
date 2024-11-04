@@ -6,4 +6,10 @@
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_large">18sp</dimen>
     <dimen name="text_size_extra_large">20sp</dimen>
+    <dimen name="bb_large_padding">16dp</dimen>
+    <dimen name="bb_stroke_thickness">1dp</dimen>
+    <dimen name="bb_super_padding">32dp</dimen>
+    <dimen name="bb_icon_large">48dp</dimen>
+    <dimen name="bb_padding">8dp</dimen>
+    <dimen name="bb_text_size">12sp</dimen>
 </resources>

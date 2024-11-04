@@ -14,15 +14,14 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-//        binding.btnTakePictureKtp.setOnClickListener {
-//            // Menampilkan fragment CameraKtpFragment
-//            val fragment = CameraKtpFragment()
-//
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.dashboardActivity, fragment) // Pastikan R.id.fragment_container adalah ID dari container yang kamu gunakan untuk menampung fragment
-//                .addToBackStack(null) // Menambahkan fragment ke backstack agar bisa kembali
-//                .commit()
-//        }
+        binding.btnTakePictureKtp.setOnClickListener {
+            val fragment = CameraKtpFragment()
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.dashboardActivity, fragment) // Pastikan R.id.fragment_container adalah ID dari container yang kamu gunakan untuk menampung fragment
+                .addToBackStack(null) // Menambahkan fragment ke backstack agar bisa kembali
+                .commit()
+        }
 
     }
 }

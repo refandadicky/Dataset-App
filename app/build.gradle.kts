@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -37,6 +38,23 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    flavorDimensions += "env"
+    productFlavors {
+        create("production") {
+            buildConfigField(
+                type = "String",
+                name = "BASE_URL",
+                value = "\"https://sbf-gcs-api.bmsecure.id/\"",
+            )
+        }
+        create("integration") {
+            buildConfigField(
+                type = "String",
+                name = "BASE_URL",
+                value = "\"https://sbf-gcs-api.bmsecure.id/\"",
+            )
+        }
+    }
 }
 
 dependencies {
@@ -56,4 +74,12 @@ dependencies {
     implementation("androidx.camera:camera-camera2:1.3.4")
     implementation("androidx.camera:camera-lifecycle:1.3.4")
     implementation("androidx.camera:camera-view:1.3.4")
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp)
+    implementation(libs.koin.android)
+    implementation(libs.lifecycle.livedata)
+    implementation(libs.lifecycle.runtime)
+    implementation(libs.lifecycle.viewmodel)
 }

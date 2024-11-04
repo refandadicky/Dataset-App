@@ -9,4 +9,13 @@
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/blue</item>
     </style>
+
+    <style name="roundedCorners" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5dp</item>
+    </style>
+
+    <style name="RoundedButton" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/roundedCorners</item>
+    </style>
 </resources>

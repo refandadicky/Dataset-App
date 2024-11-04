@@ -6,4 +6,12 @@
     <color name="blue_secondary">#99DAFF</color>
     <color name="backdrop"> #F4FBFE</color>
     <color name="transparent">#00000000</color>
+    <color name="neutral_20">#F6F6F6</color>
+    <color name="neutral_30">#EFEFEF</color>
+    <color name="neutral_40">#E4E4E4</color>
+    <color name="neutral_60">#ABABAB</color>
+    <color name="neutral_70">#878787</color>
+    <color name="neutral_90">#595959</color>
+    <color name="neutral_100">#2A2A2A</color>
+    <color name="colorBackgroundLight">#EEEEEE</color>
 </resources>

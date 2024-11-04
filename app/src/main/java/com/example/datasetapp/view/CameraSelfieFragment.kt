@@ -2,12 +2,10 @@ package com.example.datasetapp.view
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.util.Rational
 import androidx.fragment.app.Fragment
@@ -25,50 +23,31 @@ import androidx.camera.core.UseCaseGroup
 import androidx.camera.core.ViewPort
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.example.datasetapp.R
-import com.example.datasetapp.databinding.FragmentCameraKtpBinding
+import com.example.datasetapp.databinding.FragmentCameraSelfieBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
-class CameraKtpFragment : Fragment() {
+class CameraSelfieFragment : Fragment() {
 
-    private lateinit var mBinding: FragmentCameraKtpBinding
-    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private lateinit var mBinding: FragmentCameraSelfieBinding
+    private val viewModel: VerifikasiDataViewModel by viewModel()
+
+    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
     private var imageCapture: ImageCapture? = null
     private var currentImageUri: Uri? = null
     private lateinit var currentPhotoPath: String
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            Toast.makeText(requireContext(), "Permission request granted", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(requireContext(), "Permission request denied", Toast.LENGTH_LONG).show()
-        }
-    }
-
-    private fun allPermissionsGranted() = ContextCompat.checkSelfPermission(
-        requireContext(), REQUIRED_PERMISSION
-    ) == PackageManager.PERMISSION_GRANTED
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        mBinding = FragmentCameraKtpBinding.inflate(layoutInflater, container, false)
-        if (!allPermissionsGranted()) {
-            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
-        }
+    ): View? {
+        mBinding = FragmentCameraSelfieBinding.inflate(layoutInflater,container, false)
         mBinding.captureImage.setOnClickListener { takePhoto() }
 
         return mBinding.root
     }
-
     override fun onResume() {
         super.onResume()
         startCamera()
@@ -149,8 +128,6 @@ class CameraKtpFragment : Fragment() {
                     if (currentImageUri != null) {
                         // Kirim URI ke Activity berikutnya
                         val intent = Intent(requireActivity(), VerifikasiDataActivity::class.java)
-                        intent.putExtra("photo_path", currentPhotoPath)
-                        intent.putExtra("image_uri", currentImageUri)
                         startActivity(intent)
                     } else {
                         Toast.makeText(
@@ -169,10 +146,11 @@ class CameraKtpFragment : Fragment() {
     }
 
     private fun createCustomTempFile(context: Context): File {
+        val nik = viewModel.nik
+        val nama = viewModel.name
+        val atribut = mBinding.tvAtribut.text.toString()
         val filesDir = context.externalCacheDir
-        return File.createTempFile("KTP_", ".jpg", filesDir).apply {
-            currentPhotoPath = absolutePath
-        }
+        return File.createTempFile("KTP_${nik}_${nama}_${atribut}", ".jpg", filesDir)
     }
 
     private fun encodeImage() {
@@ -192,10 +170,5 @@ class CameraKtpFragment : Fragment() {
                 e.printStackTrace()
             }
         }
-    }
-
-    companion object {
-        private const val REQUIRED_PERMISSION = "android.permission.CAMERA"
-        private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
     }
 }

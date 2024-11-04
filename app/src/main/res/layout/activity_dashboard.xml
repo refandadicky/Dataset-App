@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DashboardActivity">
+    tools:context=".DashboardActivity">
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_header"
@@ -47,6 +47,7 @@
             android:text="@string/pengambilan_dataset"
             android:textSize="@dimen/text_size_normal"
             android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -56,6 +57,7 @@
             android:text="@string/description"
             android:textSize="@dimen/text_size_normal"
             android:justificationMode="inter_word"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
@@ -83,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/foto_e_ktp_anda"
                 android:textSize="@dimen/text_size_normal"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -115,6 +118,7 @@
                 android:layout_marginVertical="8dp"
                 android:text="@string/ketentuan"
                 android:textSize="@dimen/text_size_normal"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_background" />
 
@@ -124,6 +128,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
                 android:textSize="@dimen/text_size_normal"
+                android:textColor="@color/neutral_70"
                 app:drawableStartCompat="@drawable/ic_check_circle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_ketentuan"
@@ -136,6 +141,7 @@
                 android:drawablePadding="8dp"
                 android:text="Foto harus terang dan jelas, tidak boleh blur"
                 android:textSize="@dimen/text_size_normal"
+                android:textColor="@color/neutral_70"
                 app:layout_constraintTop_toBottomOf="@id/tv_ketentuan_1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:drawableStartCompat="@drawable/ic_check_circle"
@@ -148,10 +154,10 @@
                 android:drawablePadding="8dp"
                 android:text="Bukan hasil scan atau fotokopi"
                 android:textSize="@dimen/text_size_normal"
+                android:textColor="@color/neutral_70"
                 app:layout_constraintTop_toBottomOf="@id/tv_ketentuan_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:drawableStartCompat="@drawable/ic_cancel"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -164,6 +170,7 @@
         android:drawablePadding="8dp"
         android:text="Semua data yang Anda unggah aman dan dirahasiakan."
         android:textSize="@dimen/text_size_normal"
+        android:textColor="@color/neutral_70"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btn_take_picture_ktp"
         app:drawableStartCompat="@drawable/ic_gpp_good"/>
@@ -175,11 +182,15 @@
         android:layout_margin="16dp"
         android:text="@string/ambil_foto_ktp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/dashboardActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,13 @@
     <string name="ambil_foto_ktp">Ambil Foto KTP</string>
     <string name="foto_e_ktp_anda">Foto E-KTP Anda</string>
     <string name="ketentuan">Ketentuan :</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="e_ktp">e-KTP</string>
+
+    <string name="verifikasi_selfie_dengan_masker">Verifikasi Selfie dengan Masker</string>
+    <string name="verifikasi_selfie_dengan_topi">Verifikasi Selfie dengan Topi</string>
+    <string name="verifikasi_selfie_dengan_kacamata">Verifikasi Selfie dengan Kacamata</string>
+    <string name="verifikasi_selfie_tanpa_atribut_kepala">Verifikasi Selfie tanpa Atribut Kepala</string>
+    <string name="verifikasi_selfie_memejamkan_mata">Verifikasi Selfie Memejamkan Mata</string>
+    <string name="ambil_foto_baru">Ambil Foto Baru</string>
+    <string name="lanjutkan">Lanjutkan</string>
 </resources>
