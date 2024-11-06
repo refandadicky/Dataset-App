@@ -12,4 +12,5 @@
     <dimen name="bb_icon_large">48dp</dimen>
     <dimen name="bb_padding">8dp</dimen>
     <dimen name="bb_text_size">12sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

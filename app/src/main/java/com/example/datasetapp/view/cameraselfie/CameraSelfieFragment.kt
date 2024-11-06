@@ -1,13 +1,11 @@
-package com.example.datasetapp.view
+package com.example.datasetapp.view.cameraselfie
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.util.Rational
 import androidx.fragment.app.Fragment
@@ -16,7 +14,6 @@ import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -25,45 +22,35 @@ import androidx.camera.core.UseCaseGroup
 import androidx.camera.core.ViewPort
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.example.datasetapp.R
-import com.example.datasetapp.databinding.FragmentCameraKtpBinding
+import com.example.datasetapp.data.model.SelfiePhoto
+import com.example.datasetapp.databinding.FragmentCameraSelfieBinding
+import com.example.datasetapp.view.startselfie.SelfieViewModel
+import com.example.datasetapp.view.verifikasiselfie.VerifikasiFotoSelfieFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
-class CameraKtpFragment : Fragment() {
+class CameraSelfieFragment : Fragment() {
 
-    private lateinit var mBinding: FragmentCameraKtpBinding
-    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private var _binding: FragmentCameraSelfieBinding? = null
+    private val mBinding get() = _binding!!
+    private val viewModel: SelfieViewModel by viewModel()
+
+    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
     private var imageCapture: ImageCapture? = null
     private var currentImageUri: Uri? = null
-    private lateinit var currentPhotoPath: String
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            Toast.makeText(requireContext(), "Permission request granted", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(requireContext(), "Permission request denied", Toast.LENGTH_LONG).show()
-        }
-    }
-
-    private fun allPermissionsGranted() = ContextCompat.checkSelfPermission(
-        requireContext(), REQUIRED_PERMISSION
-    ) == PackageManager.PERMISSION_GRANTED
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = FragmentCameraKtpBinding.inflate(layoutInflater, container, false)
-        if (!allPermissionsGranted()) {
-            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
-        }
+        _binding = FragmentCameraSelfieBinding.inflate(layoutInflater, container, false)
+
+//        Log.d("Fragment", "Initial selfies size: ${viewModel.selfies.value?.size}")
+        Log.d("Fragment", "Initial selfies size: ${viewModel.nik} ${viewModel.name}")
         mBinding.captureImage.setOnClickListener { takePhoto() }
 
         return mBinding.root
@@ -72,6 +59,7 @@ class CameraKtpFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         startCamera()
+        updateUIForCurrentPhoto()
     }
 
     private fun startCamera() {
@@ -126,36 +114,65 @@ class CameraKtpFragment : Fragment() {
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-        val photoFile = createCustomTempFile(requireActivity())
-        val outputOptions =
-            ImageCapture.OutputFileOptions.Builder(photoFile)
-                .build()
+        val photoFile = createCustomTempFile(requireContext())
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
         imageCapture.takePicture(outputOptions,
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     currentImageUri = output.savedUri
-//                    globalViewModel.ktpImageUri.value = output.savedUri
 
                     encodeImage()
-                    mBinding.previewView
-                    mBinding.captureImage
-                    Toast.makeText(
-                        requireContext(), "Berhasil mengambil gambar.", Toast.LENGTH_SHORT
-                    ).show()
-                    stopCamera()
 
-                    // Pindah ke Activity berikutnya setelah gambar diambil
-                    if (currentImageUri != null) {
-                        // Kirim URI ke Activity berikutnya
-                        val intent = Intent(requireActivity(), VerifikasiDataActivity::class.java)
-                        intent.putExtra("photo_path", currentPhotoPath)
-                        intent.putExtra("image_uri", currentImageUri)
-                        startActivity(intent)
-                    } else {
+                    val currentSelfies = viewModel.selfies.value
+                    if (currentSelfies != null && viewModel.currentPhotoIndex < currentSelfies.size) {
+                        val currentSelfie = currentSelfies[viewModel.currentPhotoIndex]
+
+                        // Buat instance SelfiePhoto baru dengan URI yang diperbarui
+                        val updatedSelfie = SelfiePhoto(
+                            id = currentSelfie.id,
+                            imageUri = currentImageUri,
+                            title = currentSelfie.title
+                        )
+
+
+                        // Log the URI before saving
+                        Log.d("Camera", "Saving photo with URI: $currentImageUri")
+
+                        viewModel.addSelfie(updatedSelfie)
+
+
+                        viewModel.selfies.value?.let { selfies ->
+                            val updatedPhoto = selfies.find { it.id == currentSelfie.id }
+                            Log.d("Camera", "Verifikasi - URI selfie yang diperbarui: ${updatedPhoto?.imageUri}")
+                        }
+
                         Toast.makeText(
-                            requireContext(), "Gagal mengambil URI gambar.", Toast.LENGTH_SHORT
+                            requireContext(),
+                            "Berhasil mengambil gambar.",
+                            Toast.LENGTH_SHORT
                         ).show()
+
+
+                        // Pindah ke foto berikutnya
+                        if (viewModel.currentPhotoIndex < currentSelfies.size - 1) {
+                            viewModel.currentPhotoIndex++
+                            if (viewModel.currentPhotoIndex == 1){
+                                viewModel.imageUri1 = currentImageUri
+                            } else if (viewModel.currentPhotoIndex == 2) {
+                                viewModel.imageUri2 = currentImageUri
+                            } else if (viewModel.currentPhotoIndex == 3) {
+                                viewModel.imageUri3 = currentImageUri
+                            } else if (viewModel.currentPhotoIndex == 4) {
+                                viewModel.imageUri4 = currentImageUri
+                            } else if (viewModel.currentPhotoIndex == 5) {
+                                viewModel.imageUri5 = currentImageUri
+                            }
+                            updateUIForCurrentPhoto() // Memperbarui UI untuk foto berikutnya
+                        } else {
+                            navigateToVerification()
+                        }
                     }
                 }
 
@@ -168,11 +185,32 @@ class CameraKtpFragment : Fragment() {
             })
     }
 
+    private fun navigateToVerification () {
+        // Semua foto telah diambil, lakukan tindakan selanjutnya
+        val cameraSelfieFragment = VerifikasiFotoSelfieFragment()
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.StartSelfie, cameraSelfieFragment) // Ganti dengan ID container fragment Anda
+            .addToBackStack(null)
+            .commit()
+        Toast.makeText(
+            requireContext(),
+            "Semua foto telah diambil!",
+            Toast.LENGTH_SHORT
+        ).show()
+        stopCamera()
+    }
+
     private fun createCustomTempFile(context: Context): File {
+        val nik = viewModel.nik ?: "unknown"
+        val nama = viewModel.name ?: "unknown"
+        val atribut = mBinding.tvAtribut.text.toString()
+
         val filesDir = context.externalCacheDir
-        return File.createTempFile("KTP_", ".jpg", filesDir).apply {
-            currentPhotoPath = absolutePath
-        }
+        return File.createTempFile(
+            "KTP_${nik}_${nama}_${atribut}",
+            ".jpg",
+            filesDir
+        )
     }
 
     private fun encodeImage() {
@@ -194,8 +232,16 @@ class CameraKtpFragment : Fragment() {
         }
     }
 
-    companion object {
-        private const val REQUIRED_PERMISSION = "android.permission.CAMERA"
-        private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
+    private fun updateUIForCurrentPhoto() {
+        val currentSelfies = viewModel.selfies.value
+        if (currentSelfies != null && viewModel.currentPhotoIndex < currentSelfies.size) {
+            mBinding.tvAtribut.text = currentSelfies[viewModel.currentPhotoIndex].title
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        stopCamera()
+        _binding = null
     }
 }

@@ -1,7 +1,8 @@
-package com.example.datasetapp.view
+package com.example.datasetapp.view.cameraktp
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -23,31 +24,47 @@ import androidx.camera.core.UseCaseGroup
 import androidx.camera.core.ViewPort
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.example.datasetapp.databinding.FragmentCameraSelfieBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.example.datasetapp.databinding.FragmentCameraKtpBinding
+import com.example.datasetapp.view.verifikasidata.VerifikasiDataActivity
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 
-class CameraSelfieFragment : Fragment() {
+class CameraKtpFragment : Fragment() {
 
-    private lateinit var mBinding: FragmentCameraSelfieBinding
-    private val viewModel: VerifikasiDataViewModel by viewModel()
-
-    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+    private lateinit var mBinding: FragmentCameraKtpBinding
+    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
     private var currentImageUri: Uri? = null
     private lateinit var currentPhotoPath: String
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            Toast.makeText(requireContext(), "Permission request granted", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(requireContext(), "Permission request denied", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun allPermissionsGranted() = ContextCompat.checkSelfPermission(
+        requireContext(), REQUIRED_PERMISSION
+    ) == PackageManager.PERMISSION_GRANTED
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        mBinding = FragmentCameraSelfieBinding.inflate(layoutInflater,container, false)
+    ): View {
+        mBinding = FragmentCameraKtpBinding.inflate(layoutInflater, container, false)
+        if (!allPermissionsGranted()) {
+            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
+        }
         mBinding.captureImage.setOnClickListener { takePhoto() }
 
         return mBinding.root
     }
+
     override fun onResume() {
         super.onResume()
         startCamera()
@@ -114,7 +131,6 @@ class CameraSelfieFragment : Fragment() {
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     currentImageUri = output.savedUri
-//                    globalViewModel.ktpImageUri.value = output.savedUri
 
                     encodeImage()
                     mBinding.previewView
@@ -124,10 +140,9 @@ class CameraSelfieFragment : Fragment() {
                     ).show()
                     stopCamera()
 
-                    // Pindah ke Activity berikutnya setelah gambar diambil
                     if (currentImageUri != null) {
-                        // Kirim URI ke Activity berikutnya
                         val intent = Intent(requireActivity(), VerifikasiDataActivity::class.java)
+                        intent.putExtra("image_uri", currentImageUri)
                         startActivity(intent)
                     } else {
                         Toast.makeText(
@@ -146,11 +161,8 @@ class CameraSelfieFragment : Fragment() {
     }
 
     private fun createCustomTempFile(context: Context): File {
-        val nik = viewModel.nik
-        val nama = viewModel.name
-        val atribut = mBinding.tvAtribut.text.toString()
         val filesDir = context.externalCacheDir
-        return File.createTempFile("KTP_${nik}_${nama}_${atribut}", ".jpg", filesDir)
+        return File.createTempFile("KTP_", ".jpg", filesDir)
     }
 
     private fun encodeImage() {
@@ -170,5 +182,10 @@ class CameraSelfieFragment : Fragment() {
                 e.printStackTrace()
             }
         }
+    }
+
+    companion object {
+        private const val REQUIRED_PERMISSION = "android.permission.CAMERA"
+        private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
     }
 }

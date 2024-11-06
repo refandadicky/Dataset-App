@@ -7,7 +7,19 @@
 
     <activity
         android:id="@+id/dashboardActivity"
-        android:name="com.example.datasetapp.view.DashboardActivity"
+        android:name="com.example.datasetapp.view.startktp.StartKtpActivity"
         android:label="activity_dashboard"
-        tools:layout="@layout/activity_dashboard" />
+        tools:layout="@layout/activity_start_ktp" />
+    <fragment
+        android:id="@+id/cameraSelfieFragment"
+        android:name="com.example.datasetapp.view.cameraselfie.CameraSelfieFragment"
+        android:label="CameraSelfieFragment" >
+        <action
+            android:id="@+id/action_cameraSelfieFragment_to_verifikasiFotoSelfieFragment"
+            app:destination="@id/verifikasiFotoSelfieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifikasiFotoSelfieFragment"
+        android:name="com.example.datasetapp.view.verifikasiselfie.VerifikasiFotoSelfieFragment"
+        android:label="VerifikasiFotoSelfieFragment" />
 </navigation>

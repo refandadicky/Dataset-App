@@ -3,7 +3,8 @@ package com.example.datasetapp.di
 import com.example.datasetapp.data.repository.DatasetRepository
 import com.example.datasetapp.data.source.network.service.ApiConfig
 import com.example.datasetapp.data.source.network.service.DatasetApiService
-import com.example.datasetapp.view.VerifikasiDataViewModel
+import com.example.datasetapp.view.startselfie.SelfieViewModel
+import com.example.datasetapp.view.verifikasidata.VerifikasiDataViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -21,6 +22,7 @@ object AppModules {
     private val viewModelModule =
         module {
             viewModelOf(::VerifikasiDataViewModel)
+            viewModelOf(::SelfieViewModel)
         }
 
 

@@ -1,13 +1,14 @@
-package com.example.datasetapp
+package com.example.datasetapp.view.startktp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.datasetapp.databinding.ActivityDashboardBinding
-import com.example.datasetapp.view.CameraKtpFragment
+import com.example.datasetapp.R
+import com.example.datasetapp.databinding.ActivityStartKtpBinding
+import com.example.datasetapp.view.cameraktp.CameraKtpFragment
 
-class DashboardActivity : AppCompatActivity() {
-    private val binding: ActivityDashboardBinding by lazy {
-        ActivityDashboardBinding.inflate(layoutInflater)
+class StartKtpActivity : AppCompatActivity() {
+    private val binding: ActivityStartKtpBinding by lazy {
+        ActivityStartKtpBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

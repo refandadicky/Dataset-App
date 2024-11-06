@@ -4,6 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#0091D0</color>
     <color name="blue_secondary">#99DAFF</color>
+    <color name="orange">#FFB020</color>
+    <color name="orange_surface">#FFFAF1</color>
     <color name="backdrop"> #F4FBFE</color>
     <color name="transparent">#00000000</color>
     <color name="neutral_20">#F6F6F6</color>
