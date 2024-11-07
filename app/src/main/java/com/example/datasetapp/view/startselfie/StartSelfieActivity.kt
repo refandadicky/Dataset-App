@@ -1,11 +1,12 @@
 package com.example.datasetapp.view.startselfie
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.datasetapp.R
 import com.example.datasetapp.databinding.ActivityStartSelfieBinding
-import com.example.datasetapp.view.cameraktp.CameraKtpFragment
 import com.example.datasetapp.view.cameraselfie.CameraSelfieFragment
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StartSelfieActivity : AppCompatActivity() {
@@ -20,11 +21,14 @@ class StartSelfieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val nik = intent.getStringExtra("nik")
-        val nama = intent.getStringExtra("nama")
+        val nik: String? = intent.getStringExtra("nik")
+        val nama: String? = intent.getStringExtra("nama")
 
-        viewModel.nik = nik
-        viewModel.name = nama
+        viewModel.nik = nik ?: ""
+        viewModel.name = nama ?: ""
+
+        Log.d("selfie cekk", "onCreate: ${viewModel.name}, ${viewModel.nik}")
+        Log.d("selfie cekk2", "onCreate: ${nama}, ${nik}")
 
         binding.btnTakePictureSelfie.setOnClickListener {
             val fragment = CameraSelfieFragment()

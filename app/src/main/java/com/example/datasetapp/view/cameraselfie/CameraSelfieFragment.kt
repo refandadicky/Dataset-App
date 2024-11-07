@@ -28,6 +28,7 @@ import com.example.datasetapp.data.model.SelfiePhoto
 import com.example.datasetapp.databinding.FragmentCameraSelfieBinding
 import com.example.datasetapp.view.startselfie.SelfieViewModel
 import com.example.datasetapp.view.verifikasiselfie.VerifikasiFotoSelfieFragment
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -37,11 +38,12 @@ class CameraSelfieFragment : Fragment() {
 
     private var _binding: FragmentCameraSelfieBinding? = null
     private val mBinding get() = _binding!!
-    private val viewModel: SelfieViewModel by viewModel()
+    private val viewModel: SelfieViewModel by inject()
 
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
     private var imageCapture: ImageCapture? = null
     private var currentImageUri: Uri? = null
+    private var correction: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,9 +51,14 @@ class CameraSelfieFragment : Fragment() {
     ): View {
         _binding = FragmentCameraSelfieBinding.inflate(layoutInflater, container, false)
 
+        arguments?.let {
+            correction = it.getBoolean("correction", false)
+        }
+
 //        Log.d("Fragment", "Initial selfies size: ${viewModel.selfies.value?.size}")
         Log.d("Fragment", "Initial selfies size: ${viewModel.nik} ${viewModel.name}")
         mBinding.captureImage.setOnClickListener { takePhoto() }
+        activity?.intent?.getStringExtra("nik")
 
         return mBinding.root
     }
@@ -74,7 +81,7 @@ class CameraSelfieFragment : Fragment() {
 
             imageCapture = ImageCapture.Builder().build()
 
-            val viewPort = ViewPort.Builder(Rational(350, 200), Surface.ROTATION_0).build()
+            val viewPort = ViewPort.Builder(Rational(mBinding.previewView.width, mBinding.previewView.height), Surface.ROTATION_0).build()
 
             try {
                 val useCaseGroup = UseCaseGroup.Builder()
@@ -154,21 +161,32 @@ class CameraSelfieFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
 
+                        Log.d("Cekkkk", "onImageSaved: ${viewModel.currentPhotoIndex}")
+                        /*if (viewModel.currentPhotoIndex == 0){
+                            viewModel.imageUri1 = currentImageUri
+                            Log.d("CekkkkUri1", "onImageSaved: ${viewModel.imageUri1}")
+                        } else if (viewModel.currentPhotoIndex == 1) {
+                            viewModel.imageUri2 = currentImageUri
+                            Log.d("CekkkkUri2", "onImageSaved: ${viewModel.imageUri2}")
+                        } else if (viewModel.currentPhotoIndex == 2) {
+                            viewModel.imageUri3 = currentImageUri
+                            Log.d("CekkkkUri3", "onImageSaved: ${viewModel.imageUri3}")
+                        } else if (viewModel.currentPhotoIndex == 3) {
+                            viewModel.imageUri4 = currentImageUri
+                            Log.d("CekkkkUri4", "onImageSaved: ${viewModel.imageUri1}, ${viewModel.imageUri2}, ${viewModel.imageUri3},${viewModel.imageUri4}")
+                        } else if (viewModel.currentPhotoIndex == 4) {
+                            viewModel.imageUri5 = currentImageUri
+                            Log.d("CekkkkUri5", "onImageSaved: ${viewModel.imageUri5}")
+                        }*/
 
+                        if (correction){
+                            navigateToVerification()
+                        }
                         // Pindah ke foto berikutnya
-                        if (viewModel.currentPhotoIndex < currentSelfies.size - 1) {
+                        if (viewModel.currentPhotoIndex < currentSelfies.size - 1 ) {
                             viewModel.currentPhotoIndex++
-                            if (viewModel.currentPhotoIndex == 1){
-                                viewModel.imageUri1 = currentImageUri
-                            } else if (viewModel.currentPhotoIndex == 2) {
-                                viewModel.imageUri2 = currentImageUri
-                            } else if (viewModel.currentPhotoIndex == 3) {
-                                viewModel.imageUri3 = currentImageUri
-                            } else if (viewModel.currentPhotoIndex == 4) {
-                                viewModel.imageUri4 = currentImageUri
-                            } else if (viewModel.currentPhotoIndex == 5) {
-                                viewModel.imageUri5 = currentImageUri
-                            }
+                            Log.d("Cekkkk2", "onImageSaved: ${viewModel.currentPhotoIndex}")
+
                             updateUIForCurrentPhoto() // Memperbarui UI untuk foto berikutnya
                         } else {
                             navigateToVerification()

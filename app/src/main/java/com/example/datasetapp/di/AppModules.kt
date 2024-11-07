@@ -21,8 +21,9 @@ object AppModules {
 
     private val viewModelModule =
         module {
+            single { SelfieViewModel(get()) }
             viewModelOf(::VerifikasiDataViewModel)
-            viewModelOf(::SelfieViewModel)
+
         }
 
 

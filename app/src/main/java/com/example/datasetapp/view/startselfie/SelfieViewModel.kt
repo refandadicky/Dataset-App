@@ -59,10 +59,16 @@ class SelfieViewModel(private val repository : DatasetRepository) : ViewModel() 
         Log.d(TAG, "Current selfies size: ${currentList.size}")
     }
 
+    fun resetSelfie(){
+        _selfies.value?.clear()
+        _selfies.value = defaultSelfies.toMutableList()
+    }
 
-    fun uploadKtpKyc(file: File, onSuccess: (String) -> Unit, onError: (String) -> Unit) {
+
+    fun uploadSelfiePhoto(file: File, onSuccess: (String) -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             try {
+
                 // Memanggil metode upload dari repository
                 val response = repository.uploadImage(file)
                 if (response.isSuccessful) {

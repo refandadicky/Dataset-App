@@ -19,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SelfiePhotoAdapter(
     private val viewModel: SelfieViewModel,
     private var selfiePhotos: MutableList<SelfiePhoto>,
-    private val onTakePhotoClick: (Int) -> Unit// Callback untuk tombol ambil foto baru
+    private val onTakePhotoClick: (Int) -> Unit
 ) : RecyclerView.Adapter<SelfiePhotoAdapter.SelfiePhotoViewHolder>() {
 
     inner class SelfiePhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,28 +29,29 @@ class SelfiePhotoAdapter(
 
         fun bind(photo: SelfiePhoto, position: Int) {
             tvSelfieType.text = photo.title
-            if (viewModel.currentPhotoIndex != 0) {
+            if (viewModel.currentPhotoIndex != null) {
                 try {
-                    Log.d("Adapter", "Mencoba memuat gambar untuk selfie ${photo.id} dengan URI: ${photo.imageUri}")
-                    // Bersihkan gambar sebelumnya
-                    ivSelfiePhoto.setImageURI(null)
-                    // Muat gambar baru
-                    if (viewModel.currentPhotoIndex == 1){
+                    ivSelfiePhoto.setImageURI(photo.imageUri)
+                    /*if (viewModel.currentPhotoIndex == 1){
                         ivSelfiePhoto.setImageURI(viewModel.imageUri1)
-                    }
-                    if (viewModel.currentPhotoIndex == 2){
+                        Log.d("Adapter1", "onImageSaved: ${viewModel.imageUri1}")
+                    }*/
+                    /*if (viewModel.currentPhotoIndex == 2){
                         ivSelfiePhoto.setImageURI(viewModel.imageUri2)
+                        Log.d("Adapter2", "onImageSaved: ${viewModel.imageUri2}")
                     }
                     if (viewModel.currentPhotoIndex == 3){
                         ivSelfiePhoto.setImageURI(viewModel.imageUri3)
+                        Log.d("Adapter3", "onImageSaved: ${viewModel.imageUri3}")
                     }
                     if (viewModel.currentPhotoIndex == 4){
                         ivSelfiePhoto.setImageURI(viewModel.imageUri4)
+                        Log.d("Adapter4", "onImageSaved: ${viewModel.imageUri4}")
                     }
                     if (viewModel.currentPhotoIndex == 5){
                         ivSelfiePhoto.setImageURI(viewModel.imageUri5)
-                    }
-                    ivSelfiePhoto.setImageURI(photo.imageUri)
+                        Log.d("Adapter5", "onImageSaved: ${viewModel.imageUri5}")
+                    }*/
                     Log.d("Adapter", "Berhasil memuat gambar untuk selfie ${photo.id}")
                 } catch (e: Exception) {
                     Log.e("Adapter", "Error loading image: ${e.message}")
@@ -80,10 +81,8 @@ class SelfiePhotoAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateSelfies(newSelfies: List<SelfiePhoto>) {
-        Log.d("Adapter", "Updating selfies. Old size: ${selfiePhotos.size}, New size: ${newSelfies.size}")
         selfiePhotos.clear()
         selfiePhotos.addAll(newSelfies.map { it.copy() })
         notifyDataSetChanged()
-        Log.d("Adapter", "After update: ${selfiePhotos.size} items")
     }
 }

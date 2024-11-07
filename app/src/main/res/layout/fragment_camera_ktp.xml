@@ -101,18 +101,30 @@
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="0dp"
-        android:layout_height="270dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_box_ktp"
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toTopOf="@id/tv_ktp_ambil_gambar_info"
+        app:layout_constraintDimensionRatio=" 1.585 : 1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.494">
 
     </androidx.camera.view.PreviewView>
 
+    <ImageView
+        android:id="@+id/ktp_rectangle"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/camera_card_ktp_face_rectangle"
+        app:layout_constraintTop_toTopOf="@id/previewView"
+        app:layout_constraintBottom_toBottomOf="@id/previewView"
+        app:layout_constraintEnd_toEndOf="@id/previewView"/>
     <View
         android:id="@+id/viewHorisontal1"
         android:layout_width="match_parent"
@@ -173,20 +185,9 @@
 
 
     <ImageView
-        android:id="@+id/ktp_rectangle"
-        android:layout_width="110dp"
-        android:layout_height="130dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
-        android:src="@drawable/camera_card_ktp_face_rectangle"
-        app:layout_constraintBottom_toBottomOf="@id/previewView"
-        app:layout_constraintEnd_toEndOf="@id/previewView"
-        app:layout_constraintTop_toTopOf="@id/previewView" />
-
-    <ImageView
         android:id="@+id/image_view_ktp_head"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:src="@drawable/ic_kepala"
         app:layout_constraintBottom_toTopOf="@id/image_view_ktp_body"
         app:layout_constraintEnd_toEndOf="@id/ktp_rectangle"
@@ -194,13 +195,14 @@
 
     <ImageView
         android:id="@+id/image_view_ktp_body"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@drawable/ic_body"
         app:layout_constraintBottom_toBottomOf="@id/ktp_rectangle"
         app:layout_constraintEnd_toEndOf="@id/ktp_rectangle"
         app:layout_constraintStart_toStartOf="@id/ktp_rectangle"
-        app:layout_constraintTop_toTopOf="@id/ktp_rectangle" />
+        app:layout_constraintTop_toTopOf="@id/ktp_rectangle"
+        />
 
     <TextView
         android:id="@+id/tv_ktp_ambil_gambar_info"

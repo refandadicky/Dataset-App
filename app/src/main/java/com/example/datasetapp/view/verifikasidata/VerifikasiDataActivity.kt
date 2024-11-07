@@ -73,7 +73,5 @@ class VerifikasiDataActivity : AppCompatActivity() {
                 // Tangani kegagalan mengganti nama file (misalnya, tampilkan pesan kesalahan)
             }
 
-            Log.d("Cekkk", "uploadkatp: Selesai upload")
-
     }
 }

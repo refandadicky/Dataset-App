@@ -157,7 +157,7 @@
                 android:textColor="@color/neutral_70"
                 app:layout_constraintTop_toBottomOf="@id/tv_ketentuan_2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:drawableStartCompat="@drawable/ic_cancel"/>
+                app:drawableStartCompat="@drawable/ic_cancel_circle"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -182,6 +182,7 @@
         android:layout_margin="16dp"
         android:text="@string/ambil_foto_ktp"
         android:textStyle="bold"
+        android:background="@drawable/rounded_box_blue"
         android:textColor="@color/white"
         android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"

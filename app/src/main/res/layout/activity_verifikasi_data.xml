@@ -79,9 +79,8 @@
                     <ImageView
                         android:id="@+id/iv_ktp"
                         android:layout_width="0dp"
-                        android:layout_height="250dp"
+                        android:layout_height="240dp"
                         android:layout_marginVertical="8dp"
-                        android:scaleType="centerCrop"
                         android:src="@drawable/ktp_2"
                         app:layout_constraintTop_toBottomOf="@id/tv_title_contoh"
                         app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +127,7 @@
                         android:textSize="@dimen/text_size_normal"
                         app:layout_constraintTop_toBottomOf="@id/tv_ketentuan_2"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:drawableStartCompat="@drawable/ic_cancel" />
+                        app:drawableStartCompat="@drawable/ic_cancel_circle" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -235,7 +234,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/rounded_box_blue_tint"
-                style="@style/RoundedButton"
                 android:textStyle="bold"
                 android:textColor="@color/blue"
                 android:text="@string/ambil_foto_baru"

@@ -1,7 +1,9 @@
 package com.example.datasetapp.view.startktp
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.transition.Visibility
 import com.example.datasetapp.R
 import com.example.datasetapp.databinding.ActivityStartKtpBinding
 import com.example.datasetapp.view.cameraktp.CameraKtpFragment
@@ -17,7 +19,6 @@ class StartKtpActivity : AppCompatActivity() {
 
         binding.btnTakePictureKtp.setOnClickListener {
             val fragment = CameraKtpFragment()
-
             supportFragmentManager.beginTransaction()
                 .replace(R.id.dashboardActivity, fragment) // Pastikan R.id.fragment_container adalah ID dari container yang kamu gunakan untuk menampung fragment
                 .addToBackStack(null) // Menambahkan fragment ke backstack agar bisa kembali

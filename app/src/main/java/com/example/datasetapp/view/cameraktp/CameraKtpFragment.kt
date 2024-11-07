@@ -82,7 +82,7 @@ class CameraKtpFragment : Fragment() {
 
             imageCapture = ImageCapture.Builder().build()
 
-            val viewPort = ViewPort.Builder(Rational(350, 200), Surface.ROTATION_0).build()
+            val viewPort = ViewPort.Builder(Rational(mBinding.previewView.width, mBinding.previewView.height), Surface.ROTATION_0).build()
 
             try {
                 val useCaseGroup = UseCaseGroup.Builder()
