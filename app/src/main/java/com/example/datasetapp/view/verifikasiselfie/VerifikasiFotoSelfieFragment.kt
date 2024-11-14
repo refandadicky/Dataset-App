@@ -111,8 +111,9 @@ class VerifikasiFotoSelfieFragment : Fragment() {
         }
 
         val photoUri = selfiePhotos[index].imageUri
+        val atribut = selfiePhotos[index].atribut
         val file = photoUri?.toFile() ?: return
-        val newFileName = "SELFIE_${viewModel.name}_${viewModel.nik}.${file.extension}" // Menambahkan ekstensi asli
+        val newFileName = "SELFIE_${viewModel.name}_${viewModel.nik}_${atribut}.${file.extension}" // Menambahkan ekstensi asli
         val newFile = File(file.parent, newFileName)
         if (file.renameTo(newFile)) {
             if (!builder.isShowing){

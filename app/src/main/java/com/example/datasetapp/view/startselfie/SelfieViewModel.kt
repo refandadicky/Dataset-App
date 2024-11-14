@@ -30,11 +30,11 @@ class SelfieViewModel(private val repository : DatasetRepository) : ViewModel() 
     val selfies: LiveData<MutableList<SelfiePhoto>> = _selfies
 
     private val defaultSelfies = listOf(
-        SelfiePhoto(1, null, "Verifikasi Selfie dengan Masker"),
-        SelfiePhoto(2, null, "Verifikasi Selfie dengan Topi"),
-        SelfiePhoto(3, null, "Verifikasi Selfie dengan Kacamata"),
-        SelfiePhoto(4, null, "Verifikasi Selfie Tanpa Atribut Kepala"),
-        SelfiePhoto(5, null, "Verifikasi Selfie Memejamkan Mata")
+        SelfiePhoto(1, null, "Verifikasi Selfie dengan Masker", "Masker"),
+        SelfiePhoto(2, null, "Verifikasi Selfie dengan Topi", "Topi"),
+        SelfiePhoto(3, null, "Verifikasi Selfie dengan Kacamata", "Kacamata"),
+        SelfiePhoto(4, null, "Verifikasi Selfie Tanpa Atribut Kepala", "Tanpa Atribut Kepala"),
+        SelfiePhoto(5, null, "Verifikasi Selfie Memejamkan Mata", "Memejamkan Mata")
     )
 
     init {

@@ -140,7 +140,8 @@ class CameraSelfieFragment : Fragment() {
                         val updatedSelfie = SelfiePhoto(
                             id = currentSelfie.id,
                             imageUri = currentImageUri,
-                            title = currentSelfie.title
+                            title = currentSelfie.title,
+                            atribut = currentSelfie.atribut
                         )
 
 
