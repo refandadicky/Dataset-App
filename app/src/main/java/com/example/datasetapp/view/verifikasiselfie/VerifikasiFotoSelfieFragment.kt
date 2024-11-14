@@ -46,6 +46,7 @@ class VerifikasiFotoSelfieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         builder = AlertDialog.Builder(context).create()
+        builder.setCancelable(false)
         // Inisialisasi RecyclerView
         recyclerView = binding.rvSelfie // Ganti dengan ID RecyclerView di layout Anda
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -64,6 +65,9 @@ class VerifikasiFotoSelfieFragment : Fragment() {
                 uploadAllSelfiePhotos(selfiePhotos)
             }
             Log.d("Fragment", "Selfies observed: ${selfiePhotos.size}")
+        }
+        binding.btnBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 

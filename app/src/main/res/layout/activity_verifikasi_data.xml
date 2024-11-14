@@ -71,6 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/foto_e_ktp_anda"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_size_normal"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent"
@@ -93,6 +94,7 @@
                         android:layout_marginVertical="8dp"
                         android:text="@string/ketentuan"
                         android:textSize="@dimen/text_size_normal"
+                        android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/iv_ktp" />
 
@@ -101,6 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="8dp"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_size_normal"
                         app:drawableStartCompat="@drawable/ic_check_circle"
                         app:layout_constraintStart_toStartOf="parent"
@@ -113,6 +116,7 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="8dp"
                         android:text="Foto harus terang dan jelas, tidak boleh blur"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_size_normal"
                         app:layout_constraintTop_toBottomOf="@id/tv_ketentuan_1"
                         app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +128,7 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="8dp"
                         android:text="Bukan hasil scan atau fotokopi"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_size_normal"
                         app:layout_constraintTop_toBottomOf="@id/tv_ketentuan_2"
                         app:layout_constraintStart_toStartOf="parent"
@@ -149,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:text="NIK"
                     android:textSize="@dimen/text_size_normal"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -158,6 +164,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="8dp"
                     android:autofillHints=""
+                    android:textColorHint="@color/neutral_60"
+                    android:textColor="@color/black"
                     android:background="@drawable/rounded_box_grey"
                     android:hint="Masukkan NIK Anda Sesuai Data KTP"
                     android:imeOptions="actionDone"
@@ -176,6 +184,7 @@
                     android:layout_marginVertical="8dp"
                     android:text="Nama"
                     android:textSize="@dimen/text_size_normal"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_input_nik" />
 
@@ -185,6 +194,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="8dp"
                     android:autofillHints=""
+                    android:textColorHint="@color/neutral_60"
+                    android:textColor="@color/black"
                     android:background="@drawable/rounded_box_grey"
                     android:hint="Masukkan Nama Anda Sesuai Data KTP"
                     android:imeOptions="actionDone"
@@ -206,6 +217,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:drawablePadding="8dp"
                 android:text="Semua data yang Anda unggah aman dan dirahasiakan."
+                android:textColor="@color/black"
                 android:textSize="@dimen/text_size_normal"
                 app:layout_constraintTop_toBottomOf="@id/ll_description"
                 app:layout_constraintStart_toStartOf="parent"

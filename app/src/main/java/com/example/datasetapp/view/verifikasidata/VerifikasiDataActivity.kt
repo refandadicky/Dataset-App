@@ -37,6 +37,10 @@ class VerifikasiDataActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun uploadkatp(imageUri: Uri, nik: String, nama : String){

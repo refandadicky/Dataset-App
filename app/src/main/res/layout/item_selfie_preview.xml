@@ -11,6 +11,7 @@
         android:layout_marginVertical="10dp"
         android:text="@string/verifikasi_selfie_dengan_masker"
         android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

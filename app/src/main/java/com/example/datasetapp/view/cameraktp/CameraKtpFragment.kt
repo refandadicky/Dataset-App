@@ -62,6 +62,10 @@ class CameraKtpFragment : Fragment() {
         }
         mBinding.captureImage.setOnClickListener { takePhoto() }
 
+        mBinding.btnBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+
         return mBinding.root
     }
 

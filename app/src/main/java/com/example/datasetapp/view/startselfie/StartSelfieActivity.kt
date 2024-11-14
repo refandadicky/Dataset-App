@@ -37,5 +37,9 @@ class StartSelfieActivity : AppCompatActivity() {
                 .addToBackStack(null) // Menambahkan fragment ke backstack agar bisa kembali
                 .commit()
         }
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 }
